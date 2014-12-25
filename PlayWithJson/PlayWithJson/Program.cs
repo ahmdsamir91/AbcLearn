@@ -8,9 +8,14 @@ namespace PlayWithJson
 {
     class Program
     {
+        //[STAThread]
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello Json To GitHub");
+            //Console.WriteLine("Hello Json To GitHub");
+            var jsonOutputTest = new JsonOutputTest();
+           // jsonOutputTest.IterateOverJsonObject(jsonOutputTest.JsonObjectOutputTest());
+            jsonOutputTest.JValueParsingTest3();
+            
         }
     }
 }
