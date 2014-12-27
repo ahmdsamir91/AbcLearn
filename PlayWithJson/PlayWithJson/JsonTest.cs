@@ -153,7 +153,17 @@ namespace PlayWithJson
                          where c["id"].ToString() == "a250d479-c522-4184-87d6-e99668635fa4"
                          select new { id = c["id"], Category = c["cell"][0].ToString(), Title = c["cell"][1].ToString(), Location = c["cell"][2].ToString(), City = c["cell"][3].ToString(), State = c["cell"][4].ToString(), Date = c["cell"][5].ToString(), JobUrl = c["cell"][6].ToString() }).ToList();
 
-            // get all the ids
+
+            // Combine Regex with Linq - http://msdn.microsoft.com/en-us/library/bb882639.aspx
+
+            var jobUrlRegex =
+           new System.Text.RegularExpressions.Regex("/job-detail/.*?(?=\\\")");
+
+            var uRLsList = (from c in rss["rows"].Children()
+                            let jobUrl = jobUrlRegex.Match(c["cell"][6].Value<string>())
+                            select jobUrl.ToString()).ToList();
+
+            // get all the ids --
             var idsList = (from c in rss["rows"].Children()
                            select c["id"]).ToList();
 
